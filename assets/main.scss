@@ -19,14 +19,21 @@ html, body{
     background: url(/assets/images/bg.png);
     background-size: cover;
     background-position: center;
+    text-align: center;
 }
 
-.main{
-    height: 100%;
+a{
+    color: #fff;
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+.main{ 
     padding: 20px;
     line-height: 1.6;
 
-    &__ratio,p,h1,h2{
+    &__ratio,p,h1,h2,h3{
         margin-bottom: 40px;
     }
 
@@ -38,7 +45,11 @@ html, body{
         font-size: 3em;             
     }
 
-    h1,h2{
+    h3{
+        font-size: 2em;
+    }
+
+    h1,h2,h3{
         font-family: 'Oswald', sans-serif;
         text-transform: uppercase;
         font-weight: 700;
@@ -69,6 +80,8 @@ html, body{
 .section{
     width: 100%;    
     max-width: 800px;
+    text-align: left;
+    margin: auto;
     &--intro{    
     }
 }
@@ -84,6 +97,29 @@ html, body{
 .aside{
     &--light{
         background: rgba(255,255,255,.03);
+    }
+}
+
+.subscribe{
+    &__link{
+        display: inline-block;
+        line-height: 27px;
+        padding: 0 8px;
+        color:#fff;
+        background: #000;
+        width: 110px;
+        text-align: center;
+        text-decoration: none;
+        margin-bottom: 3px;
+        &--soundcloud{
+            background: #ff7700;
+        }
+        &--mixcloud{
+            background: #52aad8;
+        }
+        &--youtube{
+            background: #FF0000;
+        }        
     }
 }
 
