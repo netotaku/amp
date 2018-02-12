@@ -12,14 +12,14 @@ html, body{
     font-size: 1em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    // text-align: center;
     color: #fff;
     background: #0A0A12;
     font-family: 'Open Sans', sans-serif;
     background: url(/assets/images/bg.png);
     background-size: cover;
     background-position: center;
-    text-align: center;
+    background-attachment: fixed;
+    height: 100%;
 }
 
 a{
@@ -29,8 +29,7 @@ a{
     }
 }
 
-.main{ 
-    padding: 20px;
+.main{     
     line-height: 1.6;
 
     &__ratio,p,h1,h2,h3{
@@ -38,7 +37,8 @@ a{
     }
 
     h1{                
-        font-size: 5em;             
+        font-size: 3em;             
+        line-height: 1.2;
     }
 
     h2{
@@ -57,11 +57,7 @@ a{
 
 }
 
-.header{        
-    background: url(/assets/images/ezgif-kk.gif);
-    background-size: cover;
-    background-position: center;
-}
+
 
 .ratio{
 	position: relative;
@@ -80,37 +76,62 @@ a{
 .section{
     width: 100%;    
     max-width: 800px;
-    text-align: left;
-    margin: auto;
-    &--intro{    
-    }
+    padding: 20px;
 }
 
 .footer{    
     background: #111;
     color: #ccc;
-    a{
-        color: #ccc;
-    }
+    a{ color: #ccc; }
 }
 
 .aside{
     &--light{
-        background: rgba(255,255,255,.03);
+        background: rgba(0,0,0,.1);
     }
 }
 
-.subscribe{
+
+$H: 50px;
+
+.header{        
+    // background: url(/assets/images/ezgif-kk.gif);
+    // background-size: cover;
+    // background-position: center;
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    top: 0px;
+    line-height: $H;   
+    height: $H; 
+    background: rgba(0,0,0,.5);
+}
+
+.subscribe{    
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    h3{
+        margin-bottom: 10px; 
+    }
     &__link{
-        display: inline-block;
-        line-height: 27px;
-        padding: 0 8px;
-        color:#fff;
-        background: #000;
-        width: 110px;
+        display: block;
+        float: left;
+        line-height: $H;
+        padding: 0 12px;
+        color:#fff;             
         text-align: center;
         text-decoration: none;
-        margin-bottom: 3px;
+
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
+        
+        &--service{
+            font-size: 1.2em;
+            width: $H;
+            padding: 0px;
+        }
         &--soundcloud{
             background: #ff7700;
         }
@@ -119,7 +140,28 @@ a{
         }
         &--youtube{
             background: #FF0000;
+        }  
+        &--rss{
+            background: #f26522;
         }        
+    }
+}
+
+.hero{
+    background: url(http://d2f0ora2gkri0g.cloudfront.net/3b/e9/3be90d29-bd02-4fc5-befd-642cd09fd738.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 40vw;
+    min-height: 220px;  
+}
+
+.cast{
+    &__title{
+        margin-bottom: 40px;
+        font-size: 3em;        
+    }
+    &__episode{
+        text-transform: uppercase;       
     }
 }
 
