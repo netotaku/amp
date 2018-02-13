@@ -73,10 +73,24 @@ a{
     }
 }
 
-.section{
-    width: 100%;    
-    max-width: 800px;
+.section{    
     padding: 20px;
+    &__measure{
+        width: 100%;    
+        max-width: 800px;
+    }
+    &--light{
+        background: rgba(194,40,40,.4);
+    }
+    &--dark{
+        background: rgba(0,0,0,.8);
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .section{    
+        padding: 40px;         
+    }   
 }
 
 .footer{    
@@ -105,6 +119,7 @@ $H: 50px;
     line-height: $H;   
     height: $H; 
     background: rgba(0,0,0,.5);
+    z-index: 1;
 }
 
 .subscribe{    
@@ -164,5 +179,7 @@ $H: 50px;
         text-transform: uppercase;       
     }
 }
+
+
 
 
