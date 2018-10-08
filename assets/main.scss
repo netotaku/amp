@@ -108,9 +108,6 @@ a{
 $H: 45px;
 
 .header{        
-    // background: url(/assets/images/ezgif-kk.gif);
-    // background-size: cover;
-    // background-position: center;
     position: fixed;
     overflow: hidden;
     width: 100%;
@@ -188,6 +185,29 @@ $H: 45px;
     }
 }
 
+.itunes{
+    display: block;
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+.u{
+    &--no-mobile{
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 600px) {
+    .section{    
+        padding: 40px;         
+    }   
+    .u {
+        &--no-mobile{
+            display: inline;
+        }
+    }
+}
 
 
 
