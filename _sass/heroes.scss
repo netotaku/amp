@@ -1,0 +1,13 @@
+.heroes{
+    &__hero{
+        &__content{
+            padding: $gutter;
+            &__title{
+                padding-bottom: $gutter;
+            }
+            &__description{
+                display: none;
+            }
+        }
+    }
+}

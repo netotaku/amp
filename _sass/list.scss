@@ -1,0 +1,17 @@
+.list{
+    &__item{
+        display: block;
+        padding: $gutter;
+        border-bottom: solid 1px #000;
+        border-top: solid 1px #555;
+        text-decoration: none;
+        &__title{
+            font-weight: bold;
+        }
+        &__image{
+            display: none;
+        }
+        &__episode{            
+        }
+    }
+}

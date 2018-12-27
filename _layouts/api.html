@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="html ">
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <link rel="stylesheet" href="/assets/player.css?{{ site.time | date: '%s' }}">   
+
+        <title>Killa Kela Podcast</title>
+        <meta name="description" content="The all new Kila Kela Podcast, every Tuesday">
+        <meta name="generator" content="ZX Spectrum 128 +2" />
+        <meta name="author" content="Killa Kela">
+          
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@KillaKela" />
+        <meta name="twitter:creator" content="@KillaKela" />
+        
+        <meta property="og:image" content="http://amp.killakelaofficial.com/assets/images/screen-.png"/>
+        <meta property="og:title" content="The Killa Kela Podcast"/>
+        <meta property="og:description" content="The all new Kila Kela Podcast, every Tuesday"/>
+        <meta property="og:site_name" content="Killa Kela Podcast"/>
+        <meta property="og:url" content="http://amp.killakelaofficial.com/">
+        <meta property="og:type" content="website" />
+          
+        <link rel="alternate" type="application/rss+xml" title="Killa Kela Podcast" href="http://feeds.soundcloud.com/users/soundcloud:users:571894/sounds.rss" />
+
+  </head>
+  <body>
+    {% raw %}
+        <div id="js-app" class="player">   
+
+
+            <header class="header">
+                <div class="banner">
+                    <a href="">Subscribe on iTunes</a>
+                </div> 
+                <h1 class="player__title">Killa Kela Podcast</h1>   
+            </header>
+            
+
+            <div class="heroes">                
+                <div class="heroes__hero" v-for="hero in heroes">
+                    <div class="u-ratio">                                        
+                        <iframe 
+                            class="u-ratio__inner" 
+                            :src="'https://www.youtube.com/embed/' + hero.snippet.resourceId.videoId" 
+                            frameborder="0" allow="autoplay; encrypted-media" 
+                            allowfullscreen></iframe>
+                    </div>
+                    <div class="heroes__hero__content"> 
+                        <h2 class="heroes__hero__content__title">{{ clean(hero.snippet.title) }}</h2>    
+                        <p class="heroes__hero__content__description">{{ hero.snippet.description }}</p>
+                    </div>
+                </div>                
+            </div>
+
+
+            <div class="list">
+                <a href="#" class="list__item" v-for="video in videos">                           
+                    <div class="list__item__image"><img :src="video.snippet.thumbnails.medium.url"></div>
+                    <div class="list__item__episode">Episode</div>
+                    <div class="list__item__title">{{ clean(video.snippet.title) }}</div>                   
+                </a>
+            </div>
+
+
+            <footer class="banner">
+                <a href="">Support us at Patreon</a>
+            </footer>
+
+        </div>
+    {% endraw %}
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        // axios.interceptors.response.use(response => {
+        //     console.log('Response:', response.data.items);
+        //     var videos = response.data.items;
+        //     for(video in videos){
+        //         console.log(videos[video].snippet.resourceId.videoId);
+        //     }
+        //     return response;
+        // });
+    
+        var vm = new Vue({
+            el: '#js-app',
+            data: {
+                heroes: [], videos: []
+            },
+            created: function() {
+                axios.get("https://content.googleapis.com/youtube/v3/playlistItems?maxResults=50&part=snippet&playlistId=PLHgojIDlZkwZ2Fv92OeDTy5p_n99WNCw1&key=AIzaSyDL26FnmqZSIR7tlXThq4P5cP7VFj4hUAY")
+                    .then(response => {
+                        var videos = response.data.items;
+                        this.heroes.push(videos.pop());
+                        this.videos = videos.reverse();                    
+                    });
+            },
+            methods: {
+                clean: function(str){
+                    return str.replace(/Killa Kela Podcast - /g,'');
+                }
+            }
+        });
+
+        </script>
+  </body>    
+</html>
