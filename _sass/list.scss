@@ -23,10 +23,12 @@
 
 @media screen and (min-width: 800px){
     .list{
-        overflow: hidden;
+        overflow: hidden;        
         &__item{
             float: left;
             width: 33.33%;
+            padding: $gutter*2;
+            border: 0px;
             &:nth-child(3n+1){
                 clear:left; 
             }

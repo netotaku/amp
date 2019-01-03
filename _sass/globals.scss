@@ -48,3 +48,13 @@ img{
 [v-cloak]{
     display: none;
 }
+
+.patroen--soft{    
+    color: #aaa;
+    text-decoration: underline;
+    display: inline-block;
+    padding-top: $gutter;
+    &:hover{
+        text-decoration: none;
+    }
+}

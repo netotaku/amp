@@ -36,7 +36,7 @@
                 <div class="banner banner--grey">
                     <a target="_blank" class="banner__link" href="https://itunes.apple.com/gb/podcast/killa-kela/id1348068059?mt=2">
                         <i class="fab fa-apple"></i> <span class="banner__link__text">Subscribe on iTunes</a></a>
-                    <a class="banner__burger" href="#"></a>
+                    <!-- <a class="banner__burger" href="#"></a> -->
                 </div> 
                 <h1 class="player__title">Killa Kela Podcast</h1>   
             </header>
@@ -56,10 +56,10 @@
                             <div class="list__item__episode">Episode {{ hero.index }}</div>
                             <h2 class="heroes__hero__content__title">{{ clean(hero.title) }}</h2>    
                             <p class="heroes__hero__content__description">{{ trim(hero.description) }}</p>
+                            <p><a target="_blank" href="https://www.patreon.com/killakelapodcast" class="patroen--soft">Support our Patreon</a></p>
                         </div>
                     </div>                
                 </div>
-
 
                 <div class="list">
                     <a href="#" v-on:click.prevent="select(video)" class="list__item" v-for="video in page">                           
@@ -69,21 +69,19 @@
                     </a>
                 </div>
 
-
                 <div class="banner" v-if="videos.length > 0">
-                    <a class="banner__link" href="#" v-on:click.prevent="more()">More Podcasts</a>
+                    <a class="banner__link button" href="#" v-on:click.prevent="more()">More Podcasts</a>
                 </div>
-
-                
-                <div v-if="open" class="overlay">
+            
+                <!-- <div v-if="open" class="overlay">
                     <a v-on:click.prevent class="overlay__close"></a>
-                </div>
+                </div> -->
 
             </div> <!-- cloak -->
 
             <footer class="footer">
                 <div class="banner banner--patreon">
-                    <a href="" class="">Support our Patreon</a>
+                    <a href="https://www.patreon.com/killakelapodcast">Support our Patreon</a>
                 </div>
                 <menu class="subscribe">                                                          
                     <a href="https://soundcloud.com/killakela/sets/killa-kela-podcasts" class="subscribe__link subscribe__link--service subscribe__link--soundcloud"><i class="fab fa-soundcloud"></i></a>                    
