@@ -12,6 +12,27 @@
             display: none;
         }
         &__episode{            
+            font-weight: bold;
+        }
+        &__description{
+            display: none;
         }
     }
+
+}
+
+@media screen and (min-width: 800px){
+    .list{
+        overflow: hidden;
+        &__item{
+            float: left;
+            width: 33.33%;
+            &:nth-child(3n+1){
+                clear:left; 
+            }
+            &__image{
+                display: block;
+            }
+        }
+    }    
 }

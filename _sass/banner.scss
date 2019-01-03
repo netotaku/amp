@@ -1,7 +1,14 @@
 .banner{
-    a{
-        display: block;
-        padding: $gutter;
+    padding: $gutter;
+    &--grey{
         background: #555;
+    }
+    &__link{
+        display: block;                
+    }
+    &--patreon{        
+        // background: rgb(249, 104, 84);
+        // text-decoration: underline;
+        font-size: 1.1em;        
     }
 }
