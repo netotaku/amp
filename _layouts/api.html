@@ -43,35 +43,45 @@
             
             <div v-cloak>
 
-                <div class="heroes">                
-                    <div class="heroes__hero" v-if="ready">
-                        <div class="u-ratio">                                        
-                            <iframe 
-                                class="u-ratio__inner" 
-                                :src="'https://www.youtube.com/embed/' + hero.resourceId.videoId" 
-                                frameborder="0" allow="autoplay; encrypted-media" 
-                                allowfullscreen></iframe>
+                <section class="section section--black">
+                    <div class="section__inner">
+                        <div class="heroes">                
+                            <div class="heroes__hero" v-if="ready">
+                                <div class="u-ratio">                                        
+                                    <iframe 
+                                        class="u-ratio__inner" 
+                                        :src="'https://www.youtube.com/embed/' + hero.resourceId.videoId" 
+                                        frameborder="0" allow="autoplay; encrypted-media" 
+                                        allowfullscreen></iframe>
+                                </div>
+                                <div class="heroes__hero__content"> 
+                                    <div class="list__item__episode">Episode {{ hero.index }}</div>
+                                    <h2 class="heroes__hero__content__title">{{ clean(hero.title) }}</h2>    
+                                    <p class="heroes__hero__content__description">{{ trim(hero.description) }}</p>
+                                    <p><a target="_blank" href="https://www.patreon.com/killakelapodcast" class="patroen--soft">Support our Patreon</a></p>
+                                </div>
+                            </div>                
                         </div>
-                        <div class="heroes__hero__content"> 
-                            <div class="list__item__episode">Episode {{ hero.index }}</div>
-                            <h2 class="heroes__hero__content__title">{{ clean(hero.title) }}</h2>    
-                            <p class="heroes__hero__content__description">{{ trim(hero.description) }}</p>
-                            <p><a target="_blank" href="https://www.patreon.com/killakelapodcast" class="patroen--soft">Support our Patreon</a></p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="section__inner">
+
+                        <div class="list">
+                            <a href="#" v-on:click.prevent="select(video)" class="list__item" v-for="video in page">                           
+                                <div class="list__item__image"><img :src="video.thumbnails.medium.url"></div>
+                                <div class="list__item__episode">Episode {{ video.index }}</div>
+                                <h3 class="list__item__title">{{ clean(video.title) }}</h3>                                       
+                            </a>
                         </div>
-                    </div>                
-                </div>
 
-                <div class="list">
-                    <a href="#" v-on:click.prevent="select(video)" class="list__item" v-for="video in page">                           
-                        <div class="list__item__image"><img :src="video.thumbnails.medium.url"></div>
-                        <div class="list__item__episode">Episode {{ video.index }}</div>
-                        <h3 class="list__item__title">{{ clean(video.title) }}</h3>                                       
-                    </a>
-                </div>
+                        <div class="banner" v-if="videos.length > 0">
+                            <a class="banner__link button" href="#" v-on:click.prevent="more()">More Podcasts</a>
+                        </div>
 
-                <div class="banner" v-if="videos.length > 0">
-                    <a class="banner__link button" href="#" v-on:click.prevent="more()">More Podcasts</a>
-                </div>
+                    </div>
+                </section>
             
                 <!-- <div v-if="open" class="overlay">
                     <a v-on:click.prevent class="overlay__close"></a>
@@ -98,18 +108,10 @@
     {% endraw %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/vue-router"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>    
     <script>
 
-        var router = new VueRouter({
-            mode: 'history', routes: []
-        });
-
-        /////
-
-        var vm = new Vue({
-            router,
+        var vm = new Vue({            
             el: '#js-app',
             data: {
                 hero: {
@@ -124,42 +126,15 @@
             },
             created: function() {
 
-                var gdata = {
-                    id: 'PLHgojIDlZkwZ2Fv92OeDTy5p_n99WNCw1',
-                    key: 'AIzaSyDL26FnmqZSIR7tlXThq4P5cP7VFj4hUAY',
-                    maxresults: 50
-                };
+                this.getVideos();
 
-                axios.get("https://content.googleapis.com/youtube/v3/playlistItems?maxResults=" + gdata.maxresults + "&part=snippet&playlistId=" + gdata.id + "&key=" + gdata.key)
-                    .then(response => {
-
-                        var r = response.data.items;
-                            videos = [];
-
-                        for(var i = 1; i <= (r.length+1); i++){                            
-                            if(typeof r[i] !== 'undefined'){                                
-                                var snippet = r[i].snippet;
-                                    snippet.index = i;
-                                videos.push(snippet);                                 
-                            }
-                        }
-
-                        // var q = this.$route.query.id
-                        // console.log(q);
-
-                        this.videos = videos.reverse(); 
-                        this.hero = videos[0];                        
-                        this.page = videos.splice(0, 6);  
-                        this.ready = true;                 
-
-                    });
             },
             methods: {
                 clean: function(str){
                     return str.replace(/Killa Kela Podcast - /g,'');
                 },
                 more: function(){                                                       
-                    var vs = videos.splice(0, 6);
+                    var vs = this.videos.splice(0, 6);
                     for(v in vs) this.page.push(vs[v]);                                                                               
                 },
                 trim: function(str){
@@ -168,6 +143,40 @@
                 select: function(video){
                     this.hero = video;
                     $("html, body").animate({ scrollTop: 0 });
+                },
+                endpoint: function(page){
+                    var gdata = { id: 'PLHgojIDlZkwZ2Fv92OeDTy5p_n99WNCw1', key: 'AIzaSyDL26FnmqZSIR7tlXThq4P5cP7VFj4hUAY', maxresults: 50 }
+                    return "https://content.googleapis.com/youtube/v3/playlistItems?maxResults=" + gdata.maxresults + "&part=snippet&playlistId=" + gdata.id + "&key=" + gdata.key + (page || '');
+                },
+                indexVideos: function(){
+                    for(var i = 1; i <= (this.videos.length+1); i++){                            
+                        if(typeof this.videos[i] !== 'undefined'){                                                            
+                            this.videos[i].index = i;                            
+                        }
+                    }
+                },
+                videosLoaded: function(){                    
+                    this.indexVideos();
+                    this.videos = this.videos.reverse(); 
+                    this.hero = this.videos[0];                        
+                    this.page = this.videos.splice(0, 6);  
+                    this.ready = true;  
+                },
+                getVideos: function(page){                    
+                    axios.get(this.endpoint(page))
+                        .then(response => {
+
+                            var videos = response.data.items;
+
+                            for(video in videos) this.videos.push(videos[video].snippet);
+                            
+                            if(response.data.nextPageToken){                                
+                                this.getVideos('&pageToken='+response.data.nextPageToken);                                
+                            } else {
+                                this.videosLoaded();
+                            }
+                            
+                        });
                 }
             }
         });
