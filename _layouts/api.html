@@ -35,8 +35,7 @@
             <header id="top" class="header">
                 <div class="banner banner--grey">
                     <a target="_blank" class="banner__link" href="https://itunes.apple.com/gb/podcast/killa-kela/id1348068059?mt=2">
-                        <i class="fab fa-apple"></i> <span class="banner__link__text">Subscribe on iTunes</a></a>
-                    <!-- <a class="banner__burger" href="#"></a> -->
+                        <i class="fab fa-apple"></i> <span class="banner__link__text">Subscribe on iTunes</a></a>                
                 </div> 
                 <h1 class="player__title">Killa Kela Podcast</h1>   
             </header>
@@ -70,7 +69,7 @@
 
                         <div class="list">
                             <a href="#" v-on:click.prevent="select(video)" class="list__item" v-for="video in page">                           
-                                <div class="list__item__image"><img :src="video.thumbnails.medium.url"></div>
+                                <div class="list__item__image"><img :src="thumb(video.thumbnails)"></div>
                                 <div class="list__item__episode">Episode {{ video.index }}</div>
                                 <h3 class="list__item__title">{{ clean(video.title) }}</h3>                                       
                             </a>
@@ -83,9 +82,6 @@
                     </div>
                 </section>
             
-                <!-- <div v-if="open" class="overlay">
-                    <a v-on:click.prevent class="overlay__close"></a>
-                </div> -->
 
             </div> <!-- cloak -->
 
@@ -130,6 +126,14 @@
 
             },
             methods: {
+                thumb: function(img){
+                    if(img){
+                        return img.medium.url;
+                    } else {
+                        return '';
+                    }
+                    // console.log(img);
+                },
                 clean: function(str){
                     return str.replace(/Killa Kela Podcast - /g,'');
                 },
@@ -138,7 +142,16 @@
                     for(v in vs) this.page.push(vs[v]);                                                                               
                 },
                 trim: function(str){
-                    return str.split('Subscribe')[0];
+                    var o = '',
+                        split = str.split('Subscribe')[0];
+
+                    if(str.split('Subscribe')[0] == undefined){
+                        o = str;
+                    } else {
+                        o = str.split('Subscribe')[0];
+                    }
+
+                    return o;
                 },
                 select: function(video){
                     this.hero = video;
@@ -160,13 +173,18 @@
                     this.videos = this.videos.reverse(); 
                     this.hero = this.videos[0];                        
                     this.page = this.videos.splice(0, 6);  
-                    this.ready = true;  
+                    this.ready = true; 
+
+                    // console.log(this.hero);
+                    // console.log(this.page); 
                 },
                 getVideos: function(page){                    
                     axios.get(this.endpoint(page))
                         .then(response => {
 
                             var videos = response.data.items;
+
+                            // console.log(videos);
 
                             for(video in videos) this.videos.push(videos[video].snippet);
                             
